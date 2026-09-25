@@ -1,0 +1,96 @@
+BHTTP/1 — one complete request and response, annotated
+========================================================================
+captured from localhost:9000  ·  GET /index.html
+request: 58 bytes on the wire · response: 275 bytes
+
+RAW REQUEST BYTES
+  0000  00 00 32 01 01 00 00 01 01 00 0B 2F 69 6E 64 65  ..2......../inde
+  0010  78 2E 68 74 6D 6C 03 01 00 0E 6C 6F 63 61 6C 68  x.html....localh
+  0020  6F 73 74 3A 39 30 30 30 02 00 09 62 63 75 72 6C  ost:9000...bcurl
+  0030  2F 31 2E 30 03 00 03 2A 2F 2A                    /1.0...*/*
+
+FRAME  REQUEST  (58 bytes on the wire)
+  -- header, 8 bytes, always ------------------------------------
+  0000  00 00 32                             length = 50  (24 bits, big endian)
+  0003  01                                   type = 0x01 REQUEST
+  0004  01                                   flags = 0x01  END_STREAM
+  0005  00 00 01                             stream id = 1  (24 bits; client uses odd)
+  -- payload ---------------------------------------------------
+  0008  01                                   method = 1 (GET)   one byte, not a word
+  0009  00 0B                                path length = 11  (u16)
+  000B  2F 69 6E 64 65 78 2E 68 74 6D 6C     path = "/index.html"
+  0016  03                                   header count = 3
+  0017  01 00 0E 6C 6F 63 61 6C 68 6F 73...  header 1: static index 1 = "host", value len 14 = "localhost:9000"
+  0028  02 00 09 62 63 75 72 6C 2F 31 2E 30  header 2: static index 2 = "user-agent", value len 9 = "bcurl/1.0"
+  0034  03 00 03 2A 2F 2A                    header 3: static index 3 = "accept", value len 3 = "*/*"
+
+
+RAW RESPONSE BYTES
+  0000  00 00 6F 02 00 00 00 01 00 C8 06 07 00 0A 62 73  ..o...........bs
+  0010  65 72 76 65 2F 31 2E 30 06 00 1D 46 72 69 2C 20  erve/1.0...Fri, 
+  0020  32 35 20 53 65 70 20 32 30 32 36 20 30 36 3A 33  25 Sep 2026 06:3
+  0030  36 3A 30 35 20 47 4D 54 08 00 0A 6B 65 65 70 2D  6:05 GMT...keep-
+  0040  61 6C 69 76 65 09 00 1D 46 72 69 2C 20 32 35 20  alive...Fri, 25 
+  0050  53 65 70 20 32 30 32 36 20 30 36 3A 33 34 3A 32  Sep 2026 06:34:2
+  0060  36 20 47 4D 54 04 00 09 74 65 78 74 2F 68 74 6D  6 GMT...text/htm
+  0070  6C 05 00 03 31 34 38 00 00 94 03 01 00 00 01 3C  l...148........<
+  0080  21 64 6F 63 74 79 70 65 20 68 74 6D 6C 3E 0A 3C  !doctype html>.<
+  0090  6D 65 74 61 20 63 68 61 72 73 65 74 3D 22 75 74  meta charset="ut
+  00A0  66 2D 38 22 3E 0A 3C 74 69 74 6C 65 3E 62 73 65  f-8">.<title>bse
+  00B0  72 76 65 3C 2F 74 69 74 6C 65 3E 0A 3C 68 31 3E  rve</title>.<h1>
+  00C0  49 74 20 77 6F 72 6B 73 2E 3C 2F 68 31 3E 0A 3C  It works.</h1>.<
+  00D0  70 3E 53 65 72 76 65 64 20 6F 76 65 72 20 42 48  p>Served over BH
+  00E0  54 54 50 2F 31 20 E2 80 94 20 6E 6F 20 48 54 54  TTP/1 ... no HTT
+  00F0  50 20 61 6E 79 77 68 65 72 65 20 6F 6E 20 74 68  P anywhere on th
+  0100  69 73 20 63 6F 6E 6E 65 63 74 69 6F 6E 2E 3C 2F  is connection.</
+  0110  70 3E 0A                                         p>.
+
+FRAME  RESPONSE  (119 bytes on the wire)
+  -- header, 8 bytes, always ------------------------------------
+  0000  00 00 6F                             length = 111  (24 bits, big endian)
+  0003  02                                   type = 0x02 RESPONSE
+  0004  00                                   flags = 0x00  (none set)
+  0005  00 00 01                             stream id = 1  (24 bits; client uses odd)
+  -- payload ---------------------------------------------------
+  0008  00 C8                                status = 200  (u16, not three ASCII digits)
+  000A  06                                   header count = 6
+  000B  07 00 0A 62 73 65 72 76 65 2F 31...  header 1: static index 7 = "server", value len 10 = "bserve/1.0"
+  0018  06 00 1D 46 72 69 2C 20 32 35 20...  header 2: static index 6 = "date", value len 29 = "Fri, 25 Sep 2026 06:36:05 GMT"
+  0038  08 00 0A 6B 65 65 70 2D 61 6C 69...  header 3: static index 8 = "connection", value len 10 = "keep-alive"
+  0045  09 00 1D 46 72 69 2C 20 32 35 20...  header 4: static index 9 = "last-modified", value len 29 = "Fri, 25 Sep 2026 06:34:26 GMT"
+  0065  04 00 09 74 65 78 74 2F 68 74 6D 6C  header 5: static index 4 = "content-type", value len 9 = "text/html"
+  0071  05 00 03 31 34 38                    header 6: static index 5 = "content-length", value len 3 = "148"
+
+FRAME  DATA  (156 bytes on the wire)
+  -- header, 8 bytes, always ------------------------------------
+  0077  00 00 94                             length = 148  (24 bits, big endian)
+  007A  03                                   type = 0x03 DATA
+  007B  01                                   flags = 0x01  END_STREAM
+  007C  00 00 01                             stream id = 1  (24 bits; client uses odd)
+  -- payload ---------------------------------------------------
+  007F  3C 21 64 6F 63 74 79 70 65 20 68...  body bytes (148 of them, opaque to the framing layer)
+                                             starts: '<!doctype html>'
+========================================================================
+WHAT TO NOTICE
+
+1. The header is 8 bytes and always 8 bytes. A reader takes 8, learns
+   the length, takes exactly that many more, and is aligned again.
+   No scanning, no delimiter, no escaping — which is why a body may
+   contain any byte at all, CRLF included.
+
+2. The status is two bytes, not three ASCII characters, and the method
+   is one byte, not three. That is most of the binary win: no parsing
+   of text into numbers, no case rules, no whitespace ambiguity.
+
+3. Header names cost one byte each when they are in the static table.
+   'content-length' is 14 characters in HTTP and one byte here.
+   Values stay literal and length-prefixed, so any bytes are legal.
+
+4. Content-Length is still carried, even though every frame already
+   has a length. The frame length frames the FRAME; content-length
+   describes the whole BODY, which may span several DATA frames.
+   Length framing at two levels, exactly as FastCGI does it.
+
+5. END_STREAM is a flag, not a sentinel value in the data. There is
+   no byte sequence that could be confused with end-of-message,
+   because the marker does not live in the message at all.
