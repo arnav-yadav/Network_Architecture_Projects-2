@@ -1,4 +1,4 @@
-## Part 1 — the calculator
+Calculator
 
 ```bash
 cd NA_Calculator
