@@ -13,6 +13,7 @@ import mimetypes
 import os
 import socket
 import sys
+import threading
 import time
 from email.utils import formatdate
 
@@ -151,6 +152,22 @@ def send(conn, ftype, payload, stream, flags, verbose):
     conn.sendall(frame)
 
 
+def handle(conn, addr, root, verbose):
+    print(f"connection from {addr[0]}:{addr[1]}", flush=True)
+    t0 = time.time()
+    try:
+        n = serve_one(conn, addr, root, verbose)
+    except socket.timeout:
+        print("  idle too long, closing", flush=True)
+        n = 0
+    except (ConnectionResetError, BrokenPipeError):
+        n = 0
+    finally:
+        conn.close()
+    print(f"connection closed after {n} request(s), "
+          f"{time.time() - t0:.2f}s", flush=True)
+
+
 def main():
     if len(sys.argv) < 3:
         print("usage: bserve.py <root> <port> [-v]", file=sys.stderr)
@@ -170,19 +187,10 @@ def main():
     try:
         while True:
             conn, addr = ls.accept()
-            print(f"connection from {addr[0]}:{addr[1]}", flush=True)
-            t0 = time.time()
-            try:
-                n = serve_one(conn, addr, root, verbose)
-            except socket.timeout:
-                print("  idle too long, closing", flush=True)
-                n = 0
-            except (ConnectionResetError, BrokenPipeError):
-                n = 0
-            finally:
-                conn.close()
-            print(f"connection closed after {n} request(s), "
-                  f"{time.time() - t0:.2f}s", flush=True)
+            # One thread per connection: a client holding its connection open
+            # must not stop anyone else from being served.
+            threading.Thread(target=handle, args=(conn, addr, root, verbose),
+                             daemon=True).start()
     except KeyboardInterrupt:
         print("\nbye", flush=True)
     finally:

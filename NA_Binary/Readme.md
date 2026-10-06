@@ -4,6 +4,10 @@ Binary protocol
 cd NA_Binary
 python3 bserve.py ./www 9000            # terminal 1
 python3 bcurl.py -v localhost:9000/index.html      # terminal 2
+
+# or exactly as the brief writes them
+./bserve ./www 9000
+./bcurl -v localhost:9000/index.html
 ```
 
 ```bash
